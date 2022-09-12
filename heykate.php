@@ -1,7 +1,7 @@
 <?php
    /*
    Plugin Name: Hey Kate
-   Plugin URI: https://resume.hayesjp.com
+   Plugin URI: https://github.com/jpshayes/heykate
    description: Custom plugin for Oak Moss
    Version: 1.0
    Author: JP Hayes
