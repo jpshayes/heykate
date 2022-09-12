@@ -1,0 +1,24 @@
+<?php
+/**
+ * Template part for displaying the footer content
+ *
+ * @package heykate
+ */
+
+?>
+
+<footer id="colophon" class="bg-neutral-900 p-20 inset-x-0 bottom-0">
+	<div class="container mx-auto">
+    <div class="flex flex-col text-center space-y-6 w-48 mx-auto">
+      <?php $menu_items = wp_get_menu_array('footer-menu'); foreach ($menu_items as $item) : ?>
+      <a class="text-white"href="<?= $item['url'] ?>"><?= $item['title'] ?></a>
+      <?php endforeach; ?>
+    </div>
+	</div>
+  <div class="theme-mode">
+    <input aria-label="theme-light" type="checkbox" id="theme-toggle" name="switch" class="absolute bottom-0 right-0" /><label for="theme-toggle">Theme Mode</label>
+  </div>
+</footer><!-- #colophon -->
+<div id="message"></div>
+
+

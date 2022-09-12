@@ -1,0 +1,89 @@
+<?php
+/**
+ * Template part for displaying the header content
+ *
+ * @package heykate
+ */
+
+?>
+
+<!-- This example requires Tailwind CSS v2.0+ -->
+<header class="sm:fixed sm:inset-x-0 sm:top-0 z-10">
+  <nav id="main-nav" class="bg-gray-800">
+    <div class="mx-auto container sm:px-6">
+      <div class="relative flex h-16 items-center justify-between">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button id="menu-toggle" type="button" class="inline-flex items-center justify-center rounded-md p-2 text-green-400 hover:bg-green-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <!--
+              Icon when menu is closed.
+
+              Heroicon name: outline/bars-3
+
+              Menu open: "hidden", Menu closed: "block"
+            -->
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <!--
+              Icon when menu is open.
+
+              Heroicon name: outline/x-mark
+
+              Menu open: "block", Menu closed: "hidden"
+            -->
+            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="flex flex-shrink-0">
+            <h1 class="block text-3xl mb-0 text-white font-bold h-8 w-auto lg:hidden">Kate</h1>
+            <h1 class="hidden text-3xl mb-0 text-white font-bold h-8 w-auto lg:block">Kate</h1>
+          </div>
+          <div class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4 desktop-links links get-active">
+              <!-- Current: "bg-green-900 text-white", Default: "text-green-300 hover:bg-green-700 hover:text-white" -->
+              <?php $menu_items = wp_get_menu_array('header-menu'); foreach ($menu_items as $item) : ?>
+              <a href="<?= $item['url'] ?>"><?= $item['title'] ?></a>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center pr-2 sm:ml-6 sm:pr-0 space-x-2 desktop-links links get-active">
+          <div class="mt-[8px]">
+            <button id="profile-toggle"><img class="rounded-full w-8 h-8" src="<?php echo heykate_avatar(); ?>" /></button>
+          </div>
+          <div class=relative>
+            <div id="profile-menu" role="menu" class="hidden absolute right-0 top-3 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+              <!-- Active: "bg-gray-100", Not Active: "" -->
+              <!-- <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a> -->
+              <?php $links = heykate_profile_links(); foreach($links as $title => $href) : ?>
+              <a href="<?= $href ?>" role="menuitem"><?= $title ?></a>
+              <?php endforeach; ?>
+            </div>
+          </div>
+          <div class="relative">
+              <?php $items_count = WC()->cart->get_cart_contents_count(); ?>
+              <span id="header-cart-count" class="<?php echo $items_count ? 'block' : 'hidden'; ?>"><?php echo $items_count ? $items_count : '0'; ?></span>
+              <a href="/cart" class="flex rounded-full bg-green-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" /></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="sm:hidden hidden" id="mobile-menu">
+      <div class="space-y-1 px-2 pt-2 pb-3 mobile-links links get-active divide-y divide-slate-700">
+        <!-- Current: "bg-green-900 text-white", Default: "text-green-300 hover:bg-green-700 hover:text-white" -->
+        <!-- <a href="#" class="bg-green-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a> -->
+        <!-- <a href="#" class="text-green-300 hover:bg-green-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a> -->
+        <?php $menu_items = wp_get_menu_array('header-menu'); foreach ($menu_items as $item) : ?>
+          <a class="text-green-300 hover:bg-green-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" href="<?= $item['url'] ?>"><?= $item['title'] ?></a>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </nav>
+</header>
